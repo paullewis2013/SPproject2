@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Forbidden Words</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      h1, h4, h6 {
+        text-align: center;
+        margin: 30px;
+      }
+      .bottom {
+        position: fixed;
+        bottom: 0px;
+      }
+      body {
+          background-color: wheat;
+      }
+      fieldset {
+        margin: 5px;
+        background-color: lightgrey;
+        border-radius: 10px;
+      }
+      p {
+        font-size: 30px;
+        text-align: center;
+        font-weight: bold;
+      }
+      #original-text {
+        width: 80%;
+        margin: auto;
+      }
+      #top-row {
+        margin-bottom: 30px;
+      }
+
+    </style>
+
+    <script>
+
+      function find() {
+        var str = document.getElementById('original-text').value;
+        console.log(str);
+      }
+
+    </script>
+
+  </head>
+  <body>
+    <h1>Senior Project application #2: Forbidden Word Finder</h1>
+
+    <div class="container-fluid">
+
+      <div class="row" id="top-row">
+
+        <div class="col-sm-6">
+          <fieldset>
+            <p id="instructions">Instructions:</p>
+            <hr>
+            <ul>
+              <li>fill</li>
+              <li>fill</li>
+              <li>fill</li>
+              <li>fill</li>
+            </ul>
+          </fieldset>
+        </div>
+
+        <div class="col-sm-6">
+          <fieldset>
+            <p id="controlpanel">Control Panel</p>
+            <hr>
+            <div class="container-fluid" id="controls">
+              <button type="button" class="btn btn-primary" id="find-button" onclick="find()">Find</button>
+            </div>
+          </fieldset>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <textarea name="original-text" id="original-text" rows="10" placeholder="Type or paste your essay here..."></textarea>
+
+      </div>
+
+    </div>
+
+    <h6 class="bottom">created by Paul Lewis</h6>
+  </body>
+</html>
