@@ -15,17 +15,24 @@
       }
       body {
           background-color: wheat;
+          min-width: 1018px;
       }
       fieldset {
         margin: 5px;
         background-color: lightgrey;
         border-radius: 10px;
-        height: 200px;
+        height: 250px;
+        min-width: 400px;
       }
       p {
         font-size: 30px;
         text-align: center;
         font-weight: bold;
+        margin: 0px;
+      }
+      hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
       }
       #original-text {
         width: 80%;
@@ -38,6 +45,22 @@
         color: red;
         text-decoration: line-through;
       }
+      .col-3 {
+        text-align: center;
+      }
+      #list-select-row {
+        padding: 10px 0;
+        margin: 0px;
+      }
+      .col-3 {
+        padding: 0px;
+        height: 80px;
+        width: 93px;
+      }
+      #controls {
+        margin: auto;
+        width: 400px;
+      }
 
     </style>
 
@@ -49,32 +72,50 @@
 
       var Q1reg = /(?<!\w)(Anything|Anyone|Anybody|Anymore|Amazing|All|Bad|Big|Come|Comes|Isn't|Aren't|Wasn't|Weren't|Haven't|Hasn't|Hadn't|Won't|Wouldn't|Don't|Doesn't|Didn't|Can't|Couldn't|Shouldn't|mustn't|Would've|Should've|Could've|Might've|Must've|Different|Difficult|Everyone|Everything|Every|Firstly|Secondly|Thirdly|Fit|Fits|For instance|For example|Furthermore|Good|Happy|Here|Horrible|How|Huge|I think|I feel|I believe|It|Kid|Little|Like|Many|Much|Nothing|Nobody|Nice|Pretty|People|Person|Quite|Sad|Scared|Sees|Something|Someone|Sometimes|Someday|Somewhat|Stuff|Such|Be|Being|Been|Am|Is|Are|Was|Were|There|Thing|Things|This|That|These|Those|Terrible|They|Use|Uses|Using|Used|Utilize|Utilizes|Utilizing|Utilized|Very|What|Whatever|Wherever|Where)([^\w])/igm
 
-      var Q3reg = "";
+      var Q3reg = /(?<!\w)(Anything|Anyone|Anybody|Anymore|Amazing|All|Away|Bad|Back|Bring|Big|Come|Comes|Creep|Crazy|Isn't|Aren't|Wasn't|Weren't|Haven't|Hasn't|Hadn't|Won't|Wouldn't|Don't|Doesn't|Didn't|Can't|Couldn't|Shouldn't|Mightn't|mustn't|Would've|Should've|Could've|Might've|Must've|Different|Difficult|Down|Everyone|Everything|Every|Firstly|Secondly|Thirdly|Fit|Fits|For instance|For example|Found|Find|Finds|Furthermore|Get|Got|Good|Happy|Have|Had|Has|Here|Higher|Horrible|How|Huge|I think|I feel|I believe|It|Interesting|Kid|Let|Lets|Little|Like|Likes|Likewise|Look|Looks|Looked|Looking|Many|Much|Nothing|Nobody|Nice|Okay|OK|O.K.|Pretty|Put|Puts|Push|Pushed|Pushes|Pushing|People|Person|Provide|Provides|provided|Providing|Quite|Really|Sad|Scared|Show|Shows|Showed|Showing|See|Sees|Sucked|Something|Someone|Sometime|Sometimes|Someday|Somewhat|Stuff|Such|Be|Being|Been|Am|Is|Are|Was|Were|Take|Takes|There|Thing|Things|This|That|These|Those|Then|Terrible|They|Use|Uses|Using|Used|Utilize|Utilizes|Utilizing|Utilized|Very|What|Whatever|Wherever|Wish|Wishes|Wishing|Wished|Work|Works|Working|Worked|Where)([^\w])/igm
+
+      var customReg = "";
 
       function find() {
         //added spaces to fix edge case at beginning and end of string where forbidden words wouldn't match regex
         var str = " " + document.getElementById('original-text').value + " ";
 
-        str = str.replace(Q1reg, "<span class=\"forbid\">$1</span>$2");
+        var listName = "";
+        var regList;
+        if(document.getElementById('Q1-list-radio').checked === true){
+          regList = Q1reg;
+          listName = "Quarter 1 Forbidden Words"
+        }else if(document.getElementById('Q3-list-radio').checked === true){
+          regList = Q3reg;
+          listName = "Quarter 3 Forbidden Words"
+        }
+
+        str = str.replace(regList, "<span class=\"forbid\">$1</span>$2");
+
 
         //overwrite the forbidden words which were marked up inside of quotations
 
 
-        document.write("<title>Markup</title>")
-        document.write("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">");
+        var w = window.open();
+
+        w.document.write("<title>Markup</title>")
+        w.document.write("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">");
+
+        w.document.write("<style> body{margin: 40px;} h4{text-align: center;}</style>");
+        w.document.write("<h4> List: " + listName + "</h4>" );
 
         // document.write("<style>.forbid { color: red; text-decoration: line-through; }</style>");
 
         // this line highlights the text but this goes away when the text is copy and pasted
-        document.write("<style>.forbid { background-color: yellow; padding-left:2px; padding-right: 2px; }</style>");
-        document.write(str);
+        w.document.write("<style>.forbid { background-color: yellow;  }</style>");
+        w.document.write(str);
       }
 
     </script>
 
   </head>
   <body>
-    <h1>Senior Project application #2: Forbidden Word Finder</h1>
+    <h1>Senior Project application #2: Forbidden Word Finder for Dr. Hobbs AP Lit. Class</h1>
 
     <div class="container-fluid">
 
@@ -86,9 +127,10 @@
             <hr>
             <ul>
               <li>Type or paste your essay into the textfield below</li>
-              <li>Select the settings you would like in the control panel</li>
-              <li>click the find button to display the text with forbidden words marked</li>
-              <li>filler text</li>
+              <li>Select the the forbidden words list you would like in the control panel</li>
+              <li>Alternatively, upload your own list of words in a .txt file</li>
+              <li>Click the "Find" button to highlight forbidden words in a new tab</li>
+              <!-- <li>View statistics at the bottom of the page</li> -->
             </ul>
           </fieldset>
         </div>
@@ -98,8 +140,31 @@
             <p id="controlpanel">Control Panel</p>
             <hr>
             <div class="container-fluid" id="controls">
-              <button type="button" class="btn btn-primary" id="find-button" onclick="find()">Find</button>
+              <div class="row" id="list-select-row">
+                <div class="col-3">
+                  <button type="button" class="btn btn-primary" id="find-button" onclick="find()">Find</button>
+                </div>
+
+                  <div class="col-3">
+                    <label for="Q1-list-radio">Quarter 1 List:</label>
+                    <input type="radio"  name="list-select" id="Q1-list-radio" checked>
+                  </div>
+                  <div class="col-3">
+                    <label for="Q3-list-radio">Quarter 3 List:</label>
+                    <input type="radio" name="list-select" id="Q3-list-radio">
+                  </div>
+                  <div class="col-3">
+                    <label for="upload-list-radio">Upload custom List:</label>
+                    <input type="radio" name="list-select" id="upload-list-radio" disabled>
+                  </div>
+
+
+              </div>
             </div>
+
+            <hr>
+
+
           </fieldset>
         </div>
 
@@ -112,31 +177,32 @@
 
     </div>
 
-    <!-- <input type="file" name="file" id="file"> -->
+    <!-- <input type="file" name="file" id="file">
 
     <script>
         //for creating new regular expressions
-        // document.getElementById('file').onchange = function(){
-        //
-        //   var file = this.files[0];
-        //   var myRegExp = "/";
-        //
-        //   var reader = new FileReader();
-        //   reader.onload = function(progressEvent){
-        //     var lines = this.result.split('\n');
-        //     for(var i = 0; i < lines.length; i++){
-        //       console.log(lines[i]);
-        //       myRegExp += lines[i];
-        //       myRegExp += "|";
-        //     }
-        //     myRegExp += "/ig"
-        //     console.log(myRegExp);
-        //   };
-        //
-        //     reader.readAsText(file);
-        // };
+        document.getElementById('file').onchange = function(){
 
-      </script>
+          var file = this.files[0];
+          var myRegExp = "/(?<!\\w)(";
+
+          var reader = new FileReader();
+          reader.onload = function(progressEvent){
+            var lines = this.result.split('\n');
+            for(var i = 0; i < lines.length; i++){
+              console.log(lines[i]);
+              myRegExp += lines[i];
+              myRegExp += "|";
+            }
+            myRegExp += ")([^\\w])/igm"
+            myRegExp = myRegExp.replace("\n", "");
+            console.log(myRegExp);
+          };
+
+            reader.readAsText(file);
+        };
+
+      </script> -->
 
     <h6 class="bottom">created by Paul Lewis</h6>
   </body>
