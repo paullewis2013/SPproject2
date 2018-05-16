@@ -20,6 +20,7 @@
         margin: 5px;
         background-color: lightgrey;
         border-radius: 10px;
+        height: 200px;
       }
       p {
         font-size: 30px;
@@ -33,14 +34,25 @@
       #top-row {
         margin-bottom: 30px;
       }
+      .forbid {
+        color: red;
+        text-decoration: line-through;
+      }
 
     </style>
 
     <script>
 
+      //var forbiddenWordsQ1 = new Array();
+
+      var Q1reg = /[^\w](Anything|Anyone|Anybody|Anymore|Amazing|All|Bad|Big|Come|Comes|Isn't|Aren't|Wasn't|Weren't|Haven't|Hasn't|Hadn't|Won't|Wouldn't|Don't|Doesn't|Didn't|Can't|Couldn't|Shouldn't|mustn't|Would've|Should've|Could've|Might've|Must've|Different|Difficult|Everyone|Everything|Every|Firstly|Secondly|Thirdly|Fit|Fits|For instance|For example|Furthermore|Good|Happy|Here|Horrible|How|Huge|I think|I feel|I believe|It|Kid|Little|Like|Many|Much|Nothing|Nobody|Nice|Pretty|People|Person|Quite|Sad|Scared|Sees|Something|Someone|Sometimes|Someday|Somewhat|Stuff|Such|Be|Being|Been|Am|Is|Are|Was|Were|There|Thing|Things|This|That|These|Those|Terrible|They|Use|Uses|Using|Used|Utilize|Utilizes|Utilizing|Utilized|Very|What|Whatever|Wherever|Where)[^\w]/ig
+
       function find() {
         var str = document.getElementById('original-text').value;
         console.log(str);
+        str = str.replace(Q1reg, "<span class=\"forbid\">$&</span>");
+        document.write("<style>.forbid { color: red; text-decoration: line-through; }</style>");
+        document.write(str);
       }
 
     </script>
@@ -84,6 +96,32 @@
       </div>
 
     </div>
+
+    <!-- <input type="file" name="file" id="file"> -->
+
+    <script>
+        //for creating new regular expressions
+        // document.getElementById('file').onchange = function(){
+        //
+        //   var file = this.files[0];
+        //   var myRegExp = "/";
+        //
+        //   var reader = new FileReader();
+        //   reader.onload = function(progressEvent){
+        //     var lines = this.result.split('\n');
+        //     for(var i = 0; i < lines.length; i++){
+        //       console.log(lines[i]);
+        //       myRegExp += lines[i];
+        //       myRegExp += "|";
+        //     }
+        //     myRegExp += "/ig"
+        //     console.log(myRegExp);
+        //   };
+        //
+        //     reader.readAsText(file);
+        // };
+
+      </script>
 
     <h6 class="bottom">created by Paul Lewis</h6>
   </body>
