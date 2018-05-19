@@ -78,6 +78,8 @@
         //added spaces to fix edge case at beginning and end of string where forbidden words wouldn't match regex
         var str = " " + document.getElementById('original-text').value + " ";
 
+        var count = 0;
+
         var listName = "";
         var regList;
         if(document.getElementById('Q1-list-radio').checked === true){
@@ -88,8 +90,13 @@
           listName = "Quarter 3 Forbidden Words"
         }
 
-        str = str.replace(regList, "<span class=\"forbid\">$1</span>$2");
+        //counts forbidden word occurences
+        while (regList.exec(str) !== null){
+          ++count;
+        }
 
+        str = str.replace(regList, "<span class=\"forbid\">$1</span>$2");
+        str = str.substring(1); //removes leading space
 
         //overwrite the forbidden words which were marked up inside of quotations
 
@@ -102,7 +109,9 @@
         w.document.write("<style> body{margin: 40px; white-space: pre-wrap;} h4{text-align: center;}</style>");
         w.document.write("<h4> Marked List: " + listName + "</h4>" );
 
-        // document.write("<style>.forbid { color: red; text-decoration: line-through; }</style>");
+        w.document.write("<h4> Forbidden Word Count: " + count + "</h4>" );
+
+        // w.document.write("<style>.forbid { color: red; text-decoration: line-through; }</style>");
 
         // this line highlights the text but this goes away when the text is copy and pasted
         w.document.write("<style>.forbid { background-color: yellow;  }</style>");
